@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-3">
+    <h1 class="text-center">Our Products</h1>
+    <p style="text-justify;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+
+    <!-- Category Filter -->
+    <div class="mb-3">
+        <h5>Filter by Category:</h5>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="{% url 'shop:products' %}">All Products</a></li>
+            {% for category in categories %}
+                <li class="list-inline-item">
+                    <a href="{% url 'shop:products_by_category' category.id %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card mx-auto" style="width: 20rem;">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" height="200px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.desc }}</p>
+                        <p class="card-text">Price: ${{ product.price }}</p>
+                        <a href="{% url 'shop:product_detail' product.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center">No products available.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+    been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+    and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+{% block content %}
+<div class="container mt-3">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 300px;">
+    <p>{{ product.desc }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <a href="#" class="btn btn-primary">Buy Now</a>
+    <a href="{% url 'cart:addtocart' product.id %}" class="btn btn-primary">Add to cart</a>
+    <a href="{% url 'shop:products' %}" class="btn btn-secondary">Back to Products</a>
+</div>
+{% endblock %}

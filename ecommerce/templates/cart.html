@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Cart View</h1>
+<div class="container mt-2 p-3" style="margin-bottom:100px">
+    <div class="row text-center">
+        <h1 class="text-center text-danger">Shopping Cart</h1>
+
+        <!-- Cart Items Section -->
+        <div class="col-6 border border-1 border-danger">
+            <h2>Cart Items</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>SubToatal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in cart %}
+                    <tr>
+                        <td>
+                            <img src="{{ i.product.image.url }}" alt="{{ i.product.name }}" class="img-fluid" style="max-width: 50px;">
+
+                        </td>
+                        <td>{{ i.product.name }}</td>
+                        <td>{{ i.quantity }}</td>
+                        <td>{{ i.product.price }}</td>
+                        <td>Subtotal:{{i.subtotal}}</td>
+                       <td>
+
+<!--    <a href="{% url 'cart:add_to_cart' i.product.id %}">-->
+<!--        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>-->
+<!--    </a>-->
+<!--    <a href="{% url 'cart:remove_from_cart' i.product.id %}">-->
+<!--        <i class="fa-solid fa-cart-minus" aria-hidden="true"></i>-->
+<!--    </a>-->
+<!--    <a href="{% url 'cart:delete_item' i.product.id %}">-->
+<!--        <i class="fa-solid fa-trash" aria-hidden="true"></i>-->
+<!--    </a>-->
+  <div class="cart-action-icons">
+    <a href="{% url 'cart:add_to_cart' i.product.id %}">
+        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
+    </a>
+    <a href="{% url 'cart:remove_from_cart' i.product.id %}">
+        <i class="fa-solid fa-cart-minus" aria-hidden="true"></i>
+    </a>
+    <a href="{% url 'cart:delete_item' i.product.id %}" onclick="return confirm('Are you sure you want to delete this item?')">
+        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+    </a>
+</div>
+</td>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Your cart is empty.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="col-6 border border-1 border-danger">
+            <h2>Checkout</h2>
+            <p>Total: {{ total_price }}</p>
+                    <button class="btn btn-primary"><a href="{% url 'cart:orderform' %}">Proceed to Checkout</a></button>
+        </div>
+    </div>
+</div>
+{% endblock %}
